@@ -3,6 +3,7 @@ package edu.grinnell.csc207.sorting;
 import edu.grinnell.csc207.util.ArrayUtils;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +18,7 @@ import org.junit.jupiter.api.Test;
  * Rather, you should subclass it and initialize stringSorter and
  * intSorter in a static @BeforeAll method.
  *
- * @author Your Name
+ * @author Benjamin Sheeley
  * @uathor Samuel A. Rebelsky
  */
 public class TestSorter {
@@ -120,4 +121,74 @@ public class TestSorter {
     ArrayUtils.permute(original);
     assertSorts(expected, original, intSorter);
   } // permutedIntegers
+
+  @Test
+  public void insertionTests() {
+    Sorter<Integer> testInsert = new InsertionSorter<Integer>(new Comparator<Integer>() {
+      public int compare(Integer i1, Integer i2) {      
+        return i1 - i2;
+      }
+    });
+    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
+    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testInsert);
+    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testInsert);
+    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testInsert);
+    assertSorts(new Integer[] {}, new Integer[] {}, testInsert);
+  }
+
+  @Test
+  public void selectionTests() {
+    Sorter<Integer> testSelect = new SelectionSorter<Integer>(new Comparator<Integer>() {
+      public int compare(Integer i1, Integer i2) {      
+        return i1 - i2;
+      }
+    });
+    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
+    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testSelect);
+    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testSelect);
+    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testSelect);
+    assertSorts(new Integer[] {}, new Integer[] {}, testSelect);
+  }
+
+  @Test
+  public void quickTests() {
+    Sorter<Integer> testQuick = new Quicksorter<Integer>(new Comparator<Integer>() {
+      public int compare(Integer i1, Integer i2) {      
+        return i1 - i2;
+      }
+    });
+    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
+    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testQuick);
+    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testQuick);
+    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testQuick);
+    assertSorts(new Integer[] {}, new Integer[] {}, testQuick);
+  }
+
+  @Test
+  public void mergeTests() {
+    Sorter<Integer> testMerge = new MergeSorter<Integer>(new Comparator<Integer>() {
+      public int compare(Integer i1, Integer i2) {      
+        return i1 - i2;
+      }
+    });
+    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
+    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testMerge);
+    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testMerge);
+    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testMerge);
+    assertSorts(new Integer[] {}, new Integer[] {}, testMerge);
+  }
+
+  @Test
+  public void sheeleySortTests() {
+    Sorter<Integer> testSheeleySort = new InsertionSorter<Integer>(new Comparator<Integer>() {
+      public int compare(Integer i1, Integer i2) {      
+        return i1 - i2;
+      }
+    });
+    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
+    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testSheeleySort);
+    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testSheeleySort);
+    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testSheeleySort);
+    assertSorts(new Integer[] {}, new Integer[] {}, testSheeleySort);
+  }
 } // class TestSorter

@@ -9,6 +9,7 @@ import java.util.Comparator;
  *   The types of values that are sorted.
  *
  * @author Samuel A. Rebelsky
+ * @author Benjamin Sheeley
  */
 
 public class MergeSorter<T> implements Sorter<T> {
@@ -55,6 +56,11 @@ public class MergeSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    // STUB
+    T[] sortedArr;
   } // sort(T[])
+
+
+  public T[] merge(T[] values) {
+    return values;
+  }
 } // class MergeSorter
