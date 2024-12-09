@@ -180,7 +180,7 @@ public class TestSorter {
 
   @Test
   public void sheeleySortTests() {
-    Sorter<Integer> testSheeleySort = new InsertionSorter<Integer>(new Comparator<Integer>() {
+    Sorter<Integer> testSheeleySort = new SheeleyBenjaminSorter<Integer>(new Comparator<Integer>() {
       public int compare(Integer i1, Integer i2) {      
         return i1 - i2;
       }

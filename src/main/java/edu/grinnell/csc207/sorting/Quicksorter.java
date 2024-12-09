@@ -2,6 +2,7 @@ package edu.grinnell.csc207.sorting;
 
 import java.util.Comparator;
 import edu.grinnell.csc207.util.*;
+import java.util.Random;
 
 /**
  * Something that sorts using Quicksort.
@@ -22,6 +23,8 @@ public class Quicksorter<T> implements Sorter<T> {
    * The way in which elements are ordered.
    */
   Comparator<? super T> order;
+
+  Random rand = new Random(0);
 
   // +--------------+------------------------------------------------
   // | Constructors |
@@ -57,22 +60,36 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    int pivot = 0;
-    DNF(values, pivot);
+    sort(values, 0, values.length - 1);
   } // sort(T[])
 
-  public void DNF(T[] values, int pivot) {
-    int lowerBound = 0;
-    int upperBound = values.length - 1;
-    while (lowerBound < upperBound) {
-      int i = lowerBound + 1;
-      if (this.order.compare(values[i], values[pivot]) > 0) {
-        ArrayUtils.swap(values, i, lowerBound);
-        lowerBound++;
-      } else if (this.order.compare(values[i], values[pivot]) < 0) {
-        ArrayUtils.swap(values, i, upperBound);
-        upperBound--;
+  public void sort(T[] values, int lowerBound, int upperBound) {
+    if (upperBound - lowerBound < 1){ 
+      return;
+    }
+    int pivot = rand.nextInt(lowerBound, upperBound + 1);
+    pivot = parition(values, pivot, lowerBound, upperBound);
+    sort(values, lowerBound, pivot - 1);
+    sort(values, pivot + 1, upperBound);
+  }
+
+  public int parition(T[] values, int pivot, int lowerBound, int upperBound) {
+    if (upperBound - lowerBound > 0) {
+      ArrayUtils.swap(values, lowerBound, pivot);
+      int small = lowerBound;
+      int large = upperBound;
+      while (small <= large) {
+        if (order.compare(values[small], values[lowerBound]) > 0) {
+          ArrayUtils.swap(values, small, large);
+          large--;
+        } else {
+          small++;
+        }
       }
+      ArrayUtils.swap(values, lowerBound, large);
+      return large;
+    } else {
+      return lowerBound;
     }
   }
 } // class Quicksorter
