@@ -60,18 +60,18 @@ public class SelectionSorter<T> implements Sorter<T> {
     int smallestValIndex = 0;
     // initial loop, exited once sorted
     for (int i = 0; i < values.length; i++) {
-      // subloop, used to find smallest value
-      for (int j = 0; j < values.length; j++) {
-        if (this.order.compare(values[i], values[j]) > 0) {
-          smallestValIndex = j;
-        }
-        // if block to swap everything over if needed
-        if (smallestValIndex > i) {
-          ArrayUtils.swap(values, smallestValIndex, i);
-        }
+      smallestValIndex = indexOfSmallest(values, i);
+      ArrayUtils.swap(values, smallestValIndex, i);
+    }
+  } // sort(T[])
+
+  int indexOfSmallest(T[] values, int compareVal) {
+    int smallestSoFar = compareVal;
+    for (int j = compareVal; j < values.length; j++) {
+      if (this.order.compare(values[smallestSoFar], values[j]) > 0) {
+        smallestSoFar = j;
       }
     }
-    
-
-  } // sort(T[])
+    return smallestSoFar;
+  }
 } // class SelectionSorter
