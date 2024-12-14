@@ -13,6 +13,8 @@ public class TestInsertionSorter extends TestSorter {
   static void setup() {
     stringSorter = new InsertionSorter<String>((x,y) -> x.compareTo(y));
     intSorter = new InsertionSorter<Integer>((x,y) -> x.compareTo(y));
+
+    
   } // setup()
 
 } // class TestInsertionSorter

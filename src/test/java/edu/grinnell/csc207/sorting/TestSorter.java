@@ -122,73 +122,66 @@ public class TestSorter {
     assertSorts(expected, original, intSorter);
   } // permutedIntegers
 
+
+
   @Test
-  public void insertionTests() {
-    Sorter<Integer> testInsert = new InsertionSorter<Integer>(new Comparator<Integer>() {
-      public int compare(Integer i1, Integer i2) {      
-        return i1 - i2;
-      }
-    });
-    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
-    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testInsert);
-    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testInsert);
-    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testInsert);
-    assertSorts(new Integer[] {}, new Integer[] {}, testInsert);
+  public void testEmpty() {
+    if ((intSorter == null) || (stringSorter) == null) {
+      return;
+    }
+    Integer[] emptyIntArr = {};
+    String[] emptyStrArr = {};
+    assertSorts(emptyIntArr, emptyIntArr, intSorter);
+    assertSorts(emptyStrArr, emptyStrArr, stringSorter);
   }
 
   @Test
-  public void selectionTests() {
-    Sorter<Integer> testSelect = new SelectionSorter<Integer>(new Comparator<Integer>() {
-      public int compare(Integer i1, Integer i2) {      
-        return i1 - i2;
-      }
-    });
-    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
-    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testSelect);
-    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testSelect);
-    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testSelect);
-    assertSorts(new Integer[] {}, new Integer[] {}, testSelect);
+  public void testBackwards() {
+    if ((intSorter == null) || (stringSorter) == null) {
+      return;
+    }
+    Integer[] testIntArr = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+    Integer[] sortedTestInt = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    String[] testStrArr = {"zebra", "yam", "tuatara", "coconut", "banana", "apple"};
+    String[] sortedTestStr = {"apple", "banana", "coconut", "tuatara", "yam", "zebra"};
+    assertSorts(sortedTestInt, testIntArr, intSorter);
+    assertSorts(sortedTestStr, testStrArr, stringSorter);
   }
 
   @Test
-  public void quickTests() {
-    Sorter<Integer> testQuick = new Quicksorter<Integer>(new Comparator<Integer>() {
-      public int compare(Integer i1, Integer i2) {      
-        return i1 - i2;
-      }
-    });
-    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
-    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testQuick);
-    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testQuick);
-    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testQuick);
-    assertSorts(new Integer[] {}, new Integer[] {}, testQuick);
+  public void testUneven() {
+    if ((intSorter == null) || (stringSorter) == null) {
+      return;
+    }
+    Integer[] testIntArr = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+    Integer[] sortedTestInt = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    String[] testStrArr = {"zebra", "yam", "tuatara", "banana", "apple"};
+    String[] sortedTestStr = {"apple", "banana", "tuatara", "yam", "zebra"};
+    assertSorts(sortedTestInt, testIntArr, intSorter);
+    assertSorts(sortedTestStr, testStrArr, stringSorter);
   }
 
   @Test
-  public void mergeTests() {
-    Sorter<Integer> testMerge = new MergeSorter<Integer>(new Comparator<Integer>() {
-      public int compare(Integer i1, Integer i2) {      
-        return i1 - i2;
-      }
-    });
-    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
-    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testMerge);
-    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testMerge);
-    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testMerge);
-    assertSorts(new Integer[] {}, new Integer[] {}, testMerge);
+  public void testSorted() {
+    if ((intSorter == null) || (stringSorter) == null) {
+      return;
+    }
+    Integer[] testIntArr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    Integer[] sortedTestInt = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    String[] testStrArr = {"apple", "banana", "tuatara", "yam", "zebra"};
+    String[] sortedTestStr = {"apple", "banana", "tuatara", "yam", "zebra"};
+    assertSorts(sortedTestInt, testIntArr, intSorter);
+    assertSorts(sortedTestStr, testStrArr, stringSorter);
   }
 
   @Test
-  public void sheeleySortTests() {
-    Sorter<Integer> testSheeleySort = new SheeleyBenjaminSorter<Integer>(new Comparator<Integer>() {
-      public int compare(Integer i1, Integer i2) {      
-        return i1 - i2;
-      }
-    });
-    Integer[] sortedArray = new Integer[] {0, 1, 2, 3, 4};
-    assertSorts(sortedArray, new Integer[] {0, 1, 2, 3, 4}, testSheeleySort);
-    assertSorts(sortedArray, new Integer[] {1, 2, 4, 3, 0}, testSheeleySort);
-    assertSorts(sortedArray, new Integer[] {4, 3, 2, 1, 0}, testSheeleySort);
-    assertSorts(new Integer[] {}, new Integer[] {}, testSheeleySort);
+  public void testRepeated() {
+    if ((intSorter == null) || (stringSorter) == null) {
+      return;
+    }
+    Integer[] testIntArr = {2, 2, 2, 2, 2, 2, 2};
+    String[] testStrArr = {"apple", "apple", "apple", "apple"};
+    assertSorts(testIntArr, testIntArr, intSorter);
+    assertSorts(testStrArr, testStrArr, stringSorter);
   }
 } // class TestSorter

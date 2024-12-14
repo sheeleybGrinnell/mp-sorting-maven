@@ -56,11 +56,56 @@ public class MergeSorter<T> implements Sorter<T> {
    */
   @Override
   public void sort(T[] values) {
-    T[] sortedArr;
+    int lowerBound = 0;
+    int upperBound = values.length;
+    split(values, lowerBound, upperBound);
   } // sort(T[])
 
+  public void split(T[] values, int lowerBound, int upperBound) {
+    if (upperBound - lowerBound < 2) {
+      return;
+    }
+    T[] newArr;
+    int midpoint =  lowerBound + ((upperBound - lowerBound) / 2);
+    split(values, lowerBound, midpoint);
+    split(values, midpoint, upperBound);
+    newArr = merge(values, lowerBound, midpoint, upperBound);
+    for (int i = lowerBound; i < upperBound; i++) {
+      values[i] = newArr[i - lowerBound];
+    }
+  }
 
-  public T[] merge(T[] values) {
-    return values;
+
+  public T[] merge(T[] values, int leftLower, int midpoint, int rightUpper) {
+    T[] newArr = values.clone();
+    for (int i = 0; i < newArr.length; i++) {
+      newArr[i] = null;
+    }
+    int newArrIndex = 0;
+    int leftIndex = leftLower;
+    int rightIndex = midpoint;
+    while ((leftIndex < midpoint) && (rightIndex < rightUpper)) {
+      if (order.compare(values[leftIndex], values[rightIndex]) < 0) {
+        newArr[newArrIndex] = values[leftIndex];
+        leftIndex++;
+        newArrIndex++;
+      } else {
+        newArr[newArrIndex] = values[rightIndex];
+        rightIndex++;
+        newArrIndex++;
+      }
+    }
+    while (leftIndex < midpoint) {
+      newArr[newArrIndex] = values[leftIndex];
+      leftIndex++;
+      newArrIndex++;
+    }
+    while (rightIndex < rightUpper) {
+      newArr[newArrIndex] = values[rightIndex];
+      rightIndex++;
+      newArrIndex++;
+    }
+    return newArr;
+
   }
 } // class MergeSorter

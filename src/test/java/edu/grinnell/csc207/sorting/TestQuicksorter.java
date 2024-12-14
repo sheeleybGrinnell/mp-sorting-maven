@@ -1,6 +1,11 @@
 package edu.grinnell.csc207.sorting;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
+import java.util.Arrays;
+
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests of our Quicksorter.
