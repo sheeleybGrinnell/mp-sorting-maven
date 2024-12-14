@@ -20,7 +20,7 @@ public class SheeleyBenjaminSorter<T> implements Sorter<T> {
    * Gives us a baseline for comparison.
    */
   Comparator<? super T> order;
-  
+
   // +--------------+------------------------------------------------
   // | Constructors |
   // +--------------+
@@ -29,12 +29,12 @@ public class SheeleyBenjaminSorter<T> implements Sorter<T> {
    * Create a sorter using a particular comparator (included for
    * consistency with other sorters).
    *
-   * @param order
+   * @param comparator
    *   The order in which elements in the array should be ordered
    *   after sorting.
    */
-  public SheeleyBenjaminSorter(Comparator<? super T> order) {
-    this.order = order;
+  public SheeleyBenjaminSorter(Comparator<? super T> comparator) {
+    this.order = comparator;
   } // FakeSorter(Comparator)
 
   // +---------+-----------------------------------------------------
@@ -60,16 +60,25 @@ public class SheeleyBenjaminSorter<T> implements Sorter<T> {
     oddEvenSort(values, 1);
   } // sort(T[])
 
+
+  /**
+   * Sorts based on odd and even indices.
+   * @param values
+   *  The list of values to sort.
+   * @param startIndex
+   *  The index we start at, determines if we sort evenly or oddly.
+   */
   public void oddEvenSort(T[] values, int startIndex) {
     boolean sorted = true;
-    while(!sorted) {
+    while (!sorted) {
       sorted = true;
       for (int i = startIndex; i < values.length; i += 2) {
         if (this.order.compare(values[i], values[i + 2]) > 0) {
           ArrayUtils.swap(values, i, (i + 2));
           sorted = false;
-        }
-      }
-    }
-  }
-}
+        } //if
+      } //for
+    } //while
+  } //oddEvenSort(T[], int)
+
+} //SheeleyBenjaminSort

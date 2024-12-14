@@ -68,10 +68,10 @@ public class InsertionSorter<T> implements Sorter<T> {
           i--;
           if (j == 0) {
             break;
-          }
+          } //if
           j--;
-        }
-      }
-    }
+        } //while
+      } //if
+    } //for
   } // sort(T[])
 } // class InsertionSorter

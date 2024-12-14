@@ -1,7 +1,7 @@
 package edu.grinnell.csc207.sorting;
 
 import java.util.Comparator;
-import edu.grinnell.csc207.util.*;
+import edu.grinnell.csc207.util.ArrayUtils;
 import java.util.Random;
 
 /**
@@ -24,6 +24,9 @@ public class Quicksorter<T> implements Sorter<T> {
    */
   Comparator<? super T> order;
 
+  /**
+   * Random field to determine our next pivot.
+   */
   Random rand = new Random(0);
 
   // +--------------+------------------------------------------------
@@ -63,17 +66,39 @@ public class Quicksorter<T> implements Sorter<T> {
     sort(values, 0, values.length - 1);
   } // sort(T[])
 
+  /**
+   * Sort helper function. Partitions and sorts based on our bounds.
+   * @param values
+   *  The array we are sorting.
+   * @param lowerBound
+   *  The lower bound of the array portion we are sorting.
+   * @param upperBound
+   *  The upper bound of the array portion we are sorting.
+   */
   public void sort(T[] values, int lowerBound, int upperBound) {
-    if (upperBound - lowerBound < 1){ 
+    if (upperBound - lowerBound < 1) {
       return;
-    }
+    } //if
     int pivot = rand.nextInt(lowerBound, upperBound + 1);
-    pivot = parition(values, pivot, lowerBound, upperBound);
+    pivot = partition(values, pivot, lowerBound, upperBound);
     sort(values, lowerBound, pivot - 1);
     sort(values, pivot + 1, upperBound);
-  }
+  } //sort(T[], int, int)
 
-  public int parition(T[] values, int pivot, int lowerBound, int upperBound) {
+  /**
+   * Partitions out our array so we can determine which nonsorted and sorted portions of values.
+   * @param values
+   *  The array of values we are sorting.
+   * @param pivot
+   *  The pivot we are basing our partition off of.
+   * @param lowerBound
+   *  The lower bound of our partition, determines values less than the pivot.
+   * @param upperBound
+   *  The upper bound of our partition, any thing between this and pivot is larger than the pivot.
+   * @return
+   *  an integer value for the next value to partition by.
+   */
+  public int partition(T[] values, int pivot, int lowerBound, int upperBound) {
     if (upperBound - lowerBound > 0) {
       ArrayUtils.swap(values, lowerBound, pivot);
       int small = lowerBound;
@@ -84,12 +109,12 @@ public class Quicksorter<T> implements Sorter<T> {
           large--;
         } else {
           small++;
-        }
-      }
+        } //if/else
+      } //while
       ArrayUtils.swap(values, lowerBound, large);
       return large;
     } else {
       return lowerBound;
-    }
-  }
+    } //if/else
+  } //partition(T[], int, int, int)
 } // class Quicksorter

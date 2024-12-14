@@ -61,10 +61,19 @@ public class MergeSorter<T> implements Sorter<T> {
     split(values, lowerBound, upperBound);
   } // sort(T[])
 
+  /**
+   * A way to split up our array so we can sort and remerge later.
+   * @param values
+   *  The array we are sorting.
+   * @param lowerBound
+   *  The lower bound of the portion of values we are sorting.
+   * @param upperBound
+   *  The upper bound of the portion of values we are sorting.
+   */
   public void split(T[] values, int lowerBound, int upperBound) {
     if (upperBound - lowerBound < 2) {
       return;
-    }
+    } //if
     T[] newArr;
     int midpoint =  lowerBound + ((upperBound - lowerBound) / 2);
     split(values, lowerBound, midpoint);
@@ -72,15 +81,28 @@ public class MergeSorter<T> implements Sorter<T> {
     newArr = merge(values, lowerBound, midpoint, upperBound);
     for (int i = lowerBound; i < upperBound; i++) {
       values[i] = newArr[i - lowerBound];
-    }
-  }
+    } //for
+  } //split
 
 
+  /**
+   * How we compare, sort, and merge our values back into a new array.
+   * @param values
+   *  The array of values we are sorting.
+   * @param leftLower
+   *  The lower bound of our array, notably on the left-hand side.
+   * @param midpoint
+   *  The midpoint we use to determine where our array is split.
+   * @param rightUpper
+   *  The upper bound of our array, notably on the right-hand side.
+   * @return
+   *  A merged and sorted portion of any array.
+   */
   public T[] merge(T[] values, int leftLower, int midpoint, int rightUpper) {
     T[] newArr = values.clone();
     for (int i = 0; i < newArr.length; i++) {
       newArr[i] = null;
-    }
+    } //for
     int newArrIndex = 0;
     int leftIndex = leftLower;
     int rightIndex = midpoint;
@@ -93,19 +115,18 @@ public class MergeSorter<T> implements Sorter<T> {
         newArr[newArrIndex] = values[rightIndex];
         rightIndex++;
         newArrIndex++;
-      }
-    }
+      } //else
+    } //while
     while (leftIndex < midpoint) {
       newArr[newArrIndex] = values[leftIndex];
       leftIndex++;
       newArrIndex++;
-    }
+    } //while
     while (rightIndex < rightUpper) {
       newArr[newArrIndex] = values[rightIndex];
       rightIndex++;
       newArrIndex++;
-    }
+    } //while
     return newArr;
-
-  }
+  } //merge(T[], int, int, int)
 } // class MergeSorter
