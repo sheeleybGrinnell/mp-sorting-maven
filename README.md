@@ -9,7 +9,7 @@ Authors
 
 Acknowledgements
 
-* _Forthcoming_.
+* Samuel Rebelsky for his assistance on quicksort.
 
 This code may be found at <https://github.com/sheeleybGrinnell/mp-sorting-maven>. The original code may be found at <https://github.com/Grinnell-CSC207/mp-sorting-maven>.
 
